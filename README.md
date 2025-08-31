@@ -1,127 +1,178 @@
-# Take-Home Assignment: Mini Event Manager
+# Mini Event Manager
 
-## Goal
+A full-stack event management application built with NestJS (backend) and Next.js (frontend).
 
-Build a minimal Event Manager using Next.js (App Router), React, TypeScript, and GraphQL. The app should allow users to:
+## Features
 
-- View a list of events
-- Create a new event
-- View event details (including attendees)
-- Add/remove attendees
+- **Event Management**: Create, View & Edit events
+- **Attendee Management**: Register and manage attendees for events
+- **Real-time Updates**: Add & Remove attendees from events with live updates
+- **Modern UI**: Beautiful, responsive interface built with Tailwind CSS
+- **Toast Notifications**: User-friendly notifications instead of alerts
 
-## Requirements
+## Prerequisites
 
-### 1. Backend (GraphQL)
+- Node.js 18+ 
+- Yarn package manager
+- Git
 
-- Use a mock GraphQL API (Apollo Server, or similar) with an in-memory for storage.
-- You are responsible for designing the GraphQL schema (types, queries, mutations) needed to support the required features.
+## Setup Instructions
 
-### 2. Frontend (Next.js)
+### 1. Clone the repository
 
-- Pages:
-  - /events — List all events
-  - /events/new — Form to create a event
-  - /events/[id] — Event details, attendee management
-- Features:
-  - List events with title, date, and attendee count
-  - Create event (title and date required)
-  - View event details (show attendees)
-  - Add attendee (name and email, email optional)
-  - Remove attendee
-- Tech:
-  - TypeScript everywhere
-  - Use Apollo Client or React Query for data fetching
-  - Use React hooks and functional components
-  - Minimal styling (TailwindCSS preferred)
-  - Use Formik for forms
-  - Use Zustand for state management (if needed)
-  - Use Zod or Yup for validation (if needed)
-  - Use Headless UI for any UI components (modals, dialogs, etc.) (if needed)
-
-### 3. Entity Relationship Design
-
-In addition to the working app, provide a short document (ENTITIES.md) where you
-describe a realistic data model for the following relationships:
-
-- Users can create and manage events (create, view, update, delete)
-- Attendees can attend events, but they are not Users
-- Each Event can have one or more Tags (e.g. “Internal”, “Public”, “Team Offsite”)
-- Attendees may attend multiple events, and their RSVP status should be tracked
-
-What to include:
-
-- Entity names
-- Attributes for each entity
-- Types of each attribute (e.g., string, number, date, reference)
-- Any "join" entities if neede
-- Any constraints or unique identifiers
-- Any indexes or performance considerations
-- Any assumptions made about the data model
-
-For example:
-
-```markdown
-# Entities
-
-Dog
-
-- name: string
-- age: number (age of the dog in years)
-- ownerId: string (ID of the owner, references User)
-
-User
-
-- name: string
-- email: string (unique email address)
+```bash
+git clone <repository-url>
+cd Mini-Event-Manager
 ```
 
-### 4. Bonus (Optional)
+### 2. Backend Setup
 
-This is ONLY if you have extra time after completing the main features. It is preferred that you spend extra time on ensuring the code is maintainable and organized and rather than implementing these features.
+1. **Navigate to backend directory**:
+   ```bash
+   cd backend
+   ```
 
-- Form validation when creating events and adding attendees
-- Optimistic UI for attendee add/remove
-- Responsive design
-- Provide a Dockerfile for the app
+2. **Install dependencies**:
+   ```bash
+   yarn install
+   ```
 
-### 4. Deliverables
+3. **Start development server**:
+   ```bash
+   yarn start:dev
+   ```
 
-- GitHub repo (public link) or zip file (delete the .git and node_modules directories if zipping)
-  - Source code for the Next.js app
-  - Source code for the GraphQL server
-  - Any additional scripts or configuration files needed to run the app
-  - ENTITIES.md with the data model design
-  - SETUP.md with setup instructions and running instructions
-  - NOTES.md with any assumptions made and any known issues
+The backend will be available at http://localhost:3001
 
-### 5. Time Expectation
+### 3. Frontend Setup
 
-The core assignment should take around 5–6 hours. Please prioritize functionality and clarity. Don’t worry about perfect CSS or scalability. You’ll have 3 days to complete it, but if you need a bit more time just let me know.
+1. **Open a new terminal and navigate to frontend directory**:
+   ```bash
+   cd frontend
+   ```
 
-## What We’re Looking For
+2. **Install dependencies**:
+   ```bash
+   yarn install
+   ```
 
-This assignment is meant to give us a signal on how you think and structure projects. It’s not about perfection.
+3. **Start development server**:
+   ```bash
+   yarn dev
+   ```
 
-> **The goal is not only to make it work, but to write code that is clear, maintainable, and easy for others to understand and build upon.**
+The frontend will be available at http://localhost:3000/events
 
-We’re focusing on:
+## API Endpoints
 
-- That the core features work as described
-- Clear, maintainable code structure and logical file organization (e.g., pretend this project will be worked on by multiple people and will grow over time)
-- Good use of TypeScript features (types, interfaces, generics) (e.g., no `any` types)
-- Thoughtful naming of variables, types, and components
-- A clean, extensible GraphQL schema
-- A well-reasoned and understandable ENTITIES.md file
+### Events
+- `GET /events` - Get all events
+- `GET /events/:id` - Get event by ID
+- `POST /events` - Create new event
+- `PUT /events/:id` - Update event
+- `DELETE /events/:id` - Delete event
 
-We’re not focusing on:
+### Attendees
+- `GET /attendees` - Get all attendees
+- `GET /attendees/:id` - Get attendee by ID
+- `POST /attendees` - Create new attendee
+- `PUT /attendees/:id` - Update attendee
+- `DELETE /attendees/:id` - Delete attendee
 
-- Handling millions of users
-- Pixel-perfect UI
-- Advanced animations, spinners, or transitions
-- Using every optional tech (Zustand, Headless UI, etc.) unless helpful
+## Project Structure
 
-## Use of AI Tools
+```
+Mini-Event-Manager/
+├── backend/                 # NestJS backend
+│   ├── src/
+│   │   ├── events/         # Event-related modules
+│   │   ├── attendees/      # Attendee-related modules
+│   │   └── main.ts         # Application entry point
+│   ├── package.json
+│   └── yarn.lock
+├── frontend/               # Next.js frontend
+│   ├── src/
+│   │   ├── pages/         # Next.js pages
+│   │   ├── components/    # React components
+│   │   ├── contexts/      # React contexts
+│   │   └── types/         # TypeScript type definitions
+│   ├── package.json
+│   └── yarn.lock
+└── README.md
+```
 
-You’re welcome to use AI tools like ChatGPT, Copilot, or similar. Note, On the job you will be able to use services such as ChatGPT and Gemini. You may also be able to use AI code editors such as Cursor and Windsurf, though it's not a guarantee
+## Technologies Used
 
-That said, we’re still looking to understand how you think and how you’d approach a real-world task, so please make sure your submission reflects your own understanding. Be ready to walk us through your code and decisions in a follow-up conversation if needed.
+### Backend
+- **NestJS**: Progressive Node.js framework
+- **TypeScript**: Type-safe JavaScript
+- **Cache Manager**: In-memory caching
+- **CORS**: Cross-origin resource sharing
+
+### Frontend
+- **Next.js**: React framework
+- **TypeScript**: Type-safe JavaScript
+- **Tailwind CSS**: Utility-first CSS framework
+- **Moment.js**: Date manipulation
+- **UUID**: Unique identifier generation
+
+## Development Scripts
+
+### Backend Scripts
+```bash
+cd backend
+yarn start:dev    # Start development server with hot reload
+yarn build        # Build for production
+yarn start:prod   # Start production server
+yarn lint         # Run ESLint
+```
+
+### Frontend Scripts
+```bash
+cd frontend
+yarn dev          # Start development server
+yarn build        # Build for production
+yarn start        # Start production server
+yarn lint         # Run ESLint
+```
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Port already in use**:
+   - Stop any existing services on ports 3000 and 3001
+   - Check for running Node.js processes: `ps aux | grep node`
+
+2. **Dependencies not found**:
+   - Delete `node_modules` and `yarn.lock`
+   - Run `yarn install` again
+
+3. **Frontend can't connect to backend**:
+   - Ensure backend is running on port 3001
+   - Check CORS configuration in backend
+   - Verify network connectivity
+
+4. **Build errors**:
+   - Clear cache: `yarn cache clean`
+   - Delete `node_modules` and reinstall dependencies
+   - Check TypeScript errors: `yarn tsc --noEmit`
+
+### Getting Help
+
+1. Check the console for error messages
+2. Verify all prerequisites are installed
+3. Ensure both servers are running simultaneously
+4. Check that ports 3000 and 3001 are available
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## License
+
+This project is licensed under the MIT License.

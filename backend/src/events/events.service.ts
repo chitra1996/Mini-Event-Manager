@@ -35,6 +35,7 @@ export class EventsService {
       if (existingEvents?.length) {
         return existingEvents.find(event => event.id === id);
       } else {
+        await this.setEvents(events)
         return events.find(event => event.id === id);
       }
     } catch (error) {
@@ -86,11 +87,14 @@ export class EventsService {
   async delete(id: string): Promise<any> {
     try {
       const existingEvents = await this.getEvents();
+      let remainingEvents: any[] = [];
       if (existingEvents?.length) {
-        const remainingEvents = existingEvents.filter((event: any) => event.id !== id);
-        await this.setEvents(remainingEvents)
-        return id;
+        remainingEvents = existingEvents.filter((event: any) => event.id !== id);
+      } else {
+        remainingEvents = events.filter((event: any) => event.id !== id);
       }
+      await this.setEvents(remainingEvents)
+      return id;
     } catch (error) {
       return null;
     }
