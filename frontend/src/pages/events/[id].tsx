@@ -377,7 +377,7 @@ export default function EventDetail() {
               <div className="flex items-center justify-between">
                 <div>
                   <h2 className="text-2xl font-bold text-gray-900">Add Attendees to Event</h2>
-                  <p className="text-gray-600 mt-1">Select attendees to add to "{event?.title}"</p>
+                  <p className="text-gray-600 mt-1">Select attendees to add to &quot;{event?.title}&quot;</p>
                 </div>
                 <button
                   onClick={handleCloseAddAttendeesModal}

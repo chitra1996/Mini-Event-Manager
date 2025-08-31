@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState, useMemo } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import moment from 'moment';
 import { Attendee } from '@/types/attendees';
@@ -38,9 +38,6 @@ export default function Events() {
   useEffect(() => {
     fetchEvents();
   }, []);
-
-  // Memoize events data to prevent unnecessary re-renders
-  const memoizedEvents = useMemo(() => events, [events]);
 
   const formatDate = (dateString: string) => {
     return moment(dateString).format('MMM DD, YYYY h:mm A');
@@ -112,7 +109,7 @@ export default function Events() {
             <div className="flex items-center space-x-4">
               <div className="hidden sm:flex items-center space-x-2 text-sm text-gray-500">
                 <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-                <span>{memoizedEvents.length} events available</span>
+                <span>{events.length} events available</span>
               </div>
               <button
                 onClick={handleAttendeesClick}
@@ -139,7 +136,7 @@ export default function Events() {
 
       {/* Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {memoizedEvents.length === 0 ? (
+        {events.length === 0 ? (
           <div className="text-center py-12">
             <div className="text-gray-400 text-6xl mb-4">📅</div>
             <h3 className="text-xl font-semibold text-gray-700 mb-2">No events found</h3>
@@ -147,7 +144,7 @@ export default function Events() {
           </div>
         ) : (
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-            {memoizedEvents.map((event) => (
+            {events.map((event) => (
               <div 
                 key={event.id} 
                 onClick={() => handleCardClick(event.id)}

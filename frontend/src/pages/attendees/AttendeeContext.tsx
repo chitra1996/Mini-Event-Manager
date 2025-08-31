@@ -25,7 +25,7 @@ interface AttendeeProviderProps {
   children: ReactNode;
 }
 
-export const AttendeeProvider: React.FC<AttendeeProviderProps> = ({ children }) => {
+const AttendeeProvider: React.FC<AttendeeProviderProps> = ({ children }) => {
   const [attendees, setAttendees] = useState<Attendee[]>([]);
   const [selectedAttendee, setSelectedAttendee] = useState<Attendee | null>(null);
 
@@ -47,3 +47,5 @@ export const AttendeeProvider: React.FC<AttendeeProviderProps> = ({ children }) 
     </AttendeeContext.Provider>
   );
 };
+
+export default AttendeeProvider;
