@@ -1,17 +1,19 @@
-import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, UseInterceptors } from '@nestjs/common';
 import { EventsService } from './events.service';
+import { CacheInterceptor } from '@nestjs/cache-manager';
 
 @Controller('events')
+@UseInterceptors(CacheInterceptor)
 export class EventsController {
   constructor(private readonly eventsService: EventsService) {}
 
   @Get()
-  findAll(): any[] {
+  findAll(): Promise<any[]> {
     return this.eventsService.findAll()
   }
 
   @Get(':id')
-  findById(@Param('id') id: string): string {
+  findById(@Param('id') id: string): Promise<any> {
     return this.eventsService.findById(id)
   }
 

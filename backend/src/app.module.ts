@@ -1,11 +1,18 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { EventsModule } from './events/events.module';
+import { AttendeesModule } from './attendees/attendees.module';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
-  imports: [EventsModule],
-  controllers: [AppController],
-  providers: [AppService],
+  imports: [
+    EventsModule,
+    AttendeesModule,
+    CacheModule.register({
+      ttl: 30000, // 30 seconds
+      isGlobal: true, // Makes the cache module globally available
+    }),
+  ],
+  controllers: [],
+  providers: [],
 })
-export class AppModule {}
+export class AppModule { }

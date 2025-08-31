@@ -125,7 +125,3 @@ We’re not focusing on:
 You’re welcome to use AI tools like ChatGPT, Copilot, or similar. Note, On the job you will be able to use services such as ChatGPT and Gemini. You may also be able to use AI code editors such as Cursor and Windsurf, though it's not a guarantee
 
 That said, we’re still looking to understand how you think and how you’d approach a real-world task, so please make sure your submission reflects your own understanding. Be ready to walk us through your code and decisions in a follow-up conversation if needed.
-
-## Questions?
-
-If you have any questions about the assignment, please feel free to reach out to Ryan or me at `aeskandari@snapchat.com`. We’re happy to clarify any requirements or provide additional context.

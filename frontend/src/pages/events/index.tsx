@@ -3,12 +3,8 @@
 import { useEffect, useState, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import moment from 'moment';
-
-interface Attendee {
-  id: number;
-  name: string;
-  email: string;
-}
+import { Attendee } from '@/types/attendees';
+import CreateEventModal from './components/CreateEventModal';
 
 interface Event {
   id: number;
@@ -24,6 +20,7 @@ export default function Events() {
   const [events, setEvents] = useState<Event[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const fetchEvents = async () => {
     try {
@@ -52,6 +49,23 @@ export default function Events() {
   const handleCardClick = (eventId: number) => {
     // Navigate to event details page using Pages Router
     router.push(`/events/${eventId}`);
+  };
+
+  const handleAttendeesClick = () => {
+    router.push('/attendees');
+  };
+
+  const handleCreateEventClick = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleEventCreated = () => {
+    // Refresh events list after successful creation
+    fetchEvents();
   };
 
   if (loading) {
@@ -95,9 +109,29 @@ export default function Events() {
               </h1>
               <p className="text-gray-600 mt-1">Discover and join amazing events</p>
             </div>
-            <div className="hidden sm:flex items-center space-x-2 text-sm text-gray-500">
-              <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-              <span>{memoizedEvents.length} events available</span>
+            <div className="flex items-center space-x-4">
+              <div className="hidden sm:flex items-center space-x-2 text-sm text-gray-500">
+                <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+                <span>{memoizedEvents.length} events available</span>
+              </div>
+              <button
+                onClick={handleAttendeesClick}
+                className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center space-x-2"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197m13.5-9a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
+                </svg>
+                <span>Attendees</span>
+              </button>
+              <button
+                onClick={handleCreateEventClick}
+                className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors flex items-center space-x-2"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                </svg>
+                <span>Create New Event</span>
+              </button>
             </div>
           </div>
         </div>
@@ -157,6 +191,13 @@ export default function Events() {
           </div>
         )}
       </div>
+
+      {/* Create Event Modal */}
+      <CreateEventModal 
+        isOpen={isModalOpen}
+        onClose={handleModalClose}
+        onSuccess={handleEventCreated}
+      />
     </div>
   );
 }
